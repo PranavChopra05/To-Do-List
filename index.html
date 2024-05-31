@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List</title>
+</head>
+<style>
+  h2{
+    color: rgb(9, 9, 63);
+  }
+  .to-do {
+    height: 35px;
+  }
+  .due-date{
+    height: 36px;
+    cursor: pointer;
+  }
+  .add-task{
+    border: none;
+    background-color: rgb(9, 9, 63);
+    color: white;
+    height: 36px;
+    width: 72px;
+  }
+  .remove-button{
+    border: none;
+    background-color: rgb(154, 0, 0);
+    color: white;
+    height: 36px;
+    width: 72px;
+  }
+  .remove-button:hover{
+    border: none;
+    background-color: rgb(237, 56, 56);
+    color: white;
+    height: 36px;
+    width: 72px;
+  }
+  .add-task:hover{
+    border: none;
+    background-color: rgb(18, 18, 177);
+    color: white;
+    height: 36px;
+    width: 72px;
+    cursor: pointer;
+  }
+</style>
+<body>
+  <h2>To-Do-List</h2>
+  <input type="text" class="to-do" placeholder="Enter a task">
+  <input type="date" name="date" id="date" class="due-date">
+  <button class="add-task" onclick="addToList(); renderList();">Add</button>
+  <div class="task-added"></div>
+
+  <script>
+    const todolist = [];
+
+    function addToList() {
+      const nameInputElem = document.querySelector('.to-do');
+      const dueDateInputElem = document.querySelector('.due-date');
+      const nameValue = nameInputElem.value.trim();
+      const dueDateValue = dueDateInputElem.value;
+      
+      if (nameValue !== '') {
+        todolist.push({ name: nameValue, dueDate: dueDateValue });
+        nameInputElem.value = '';
+        dueDateInputElem.value = '';
+      }
+      
+      console.log(todolist);
+    }
+
+    function renderList() {
+      const taskadd = document.querySelector('.task-added');
+      let todolistHTML = '';
+
+      for (let i = 0; i < todolist.length; i++) {
+        const todoObject = todolist[i];
+        const { name, dueDate } = todoObject;
+        const html = `
+          <p>
+            ${name} (Due: ${dueDate})
+            <button onclick="removeTask(${i});" class = "remove-button">Remove</button>
+          </p>
+        `;
+        todolistHTML += html;
+      }
+
+      taskadd.innerHTML = todolistHTML;
+    }
+
+    function removeTask(index) {
+      todolist.splice(index, 1);
+      renderList();
+    }
+  </script>
+</body>
+</html>
