@@ -16,6 +16,13 @@
     height: 36px;
     cursor: pointer;
   }
+  .to-do-grid ,.to-do-grid-again{
+    display: grid;
+    grid-template-columns: 250px 150px 100px;
+  }
+  .to-do-grid-again{
+    margin-top: 25px;
+  }
   .add-task{
     border: none;
     background-color: rgb(9, 9, 63);
@@ -48,11 +55,13 @@
 </style>
 <body>
   <h2>To-Do-List</h2>
-  <input type="text" class="to-do" placeholder="Enter a task">
-  <input type="date" name="date" id="date" class="due-date">
-  <button class="add-task" onclick="addToList(); renderList();">Add</button>
-  <div class="task-added"></div>
+  <div class="to-do-grid">
 
+  <div><input type="text" class="to-do" placeholder="Enter a task"></div>
+  <div><input type="date" name="date" id="date" class="due-date"></div>
+  <div><button class="add-task" onclick="addToList(); renderList();">Add</button></div>
+  <div class="task-added"></div>
+  </div>
   <script>
     const todolist = [];
 
@@ -79,10 +88,11 @@
         const todoObject = todolist[i];
         const { name, dueDate } = todoObject;
         const html = `
-          <p>
-            ${name} (Due: ${dueDate})
-            <button onclick="removeTask(${i});" class = "remove-button">Remove</button>
-          </p>
+        <div class = "to-do-grid-again">
+          <div>
+            ${name} </div> <div>(Due: ${dueDate})</div>
+            <div><button onclick="removeTask(${i});" class = "remove-button">Remove</button></div>
+            </div>
         `;
         todolistHTML += html;
       }
